@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<robot name="Ur3" xmlns:xacro="http://ros.org/wiki/xacro">
+  <webots>
+    <plugin type="webots_ros2_control::Ros2Control"/>
+  </webots>
+  <ros2_control name="WebotsControl" type="system">
+    <hardware>
+      <plugin>webots_ros2_control::Ros2ControlSystem</plugin>
+    </hardware>
+    
+    <joint name="shoulder_pan_joint">
+      <command_interface name="position">
+        </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      
+      <param name="initial_position">0.0</param>
+      <!-- initial position for the FakeSystem -->
+    </joint>
+    <joint name="shoulder_lift_joint">
+      <command_interface name="position">
+        </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      
+      <param name="initial_position">-1.57</param>
+      <!-- initial position for the FakeSystem -->
+    </joint>
+    <joint name="elbow_joint">
+      <command_interface name="position">
+        </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      
+      <param name="initial_position">0.0</param>
+      <!-- initial position for the FakeSystem -->
+    </joint>
+    <joint name="wrist_1_joint">
+      <command_interface name="position">
+        </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      
+      <param name="initial_position">-1.57</param>
+      <!-- initial position for the FakeSystem -->
+    </joint>
+    <joint name="wrist_2_joint">
+      <command_interface name="position">
+        </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      
+      <param name="initial_position">0.0</param>
+      <!-- initial position for the FakeSystem -->
+    </joint>
+    <joint name="wrist_3_joint">
+      <command_interface name="position">
+        </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      
+      <param name="initial_position">0.0</param>
+      <!-- initial position for the FakeSystem -->
+    </joint>
+  </ros2_control>
+</robot>

@@ -1,0 +1,415 @@
+#VRML_SIM R2025a utf8
+# license: Apache License 2.0
+# license url: http://www.apache.org/licenses/LICENSE-2.0
+# This is a proto file for Webots for the PhantomOmni
+# Extracted from: /home/guts/omni_ws/src/webots_ros2_omni/resource/omni.urdf
+
+PROTO PhantomOmni [
+  field  SFVec3f     translation     0 0 0
+  field  SFRotation  rotation        0 0 1 0
+  field  SFString    name            "PhantomOmni"  # Is `Robot.name`.
+  field  SFString    controller      "void"         # Is `Robot.controller`.
+  field  MFString    controllerArgs  []             # Is `Robot.controllerArgs`.
+  field  SFString    customData      ""             # Is `Robot.customData`.
+  field  SFBool      supervisor      FALSE          # Is `Robot.supervisor`.
+  field  SFBool      synchronization TRUE           # Is `Robot.synchronization`.
+  field  SFBool      selfCollision   FALSE          # Is `Robot.selfCollision`.
+]
+{
+  Robot {
+    translation IS translation
+    rotation IS rotation
+    controller IS controller
+    controllerArgs IS controllerArgs
+    customData IS customData
+    supervisor IS supervisor
+    synchronization IS synchronization
+    selfCollision IS selfCollision
+    children [
+      Solid {
+        translation -1.000000 0.000000 0.050000
+        children [
+          Pose {
+            translation 0.000000 -0.020000 0.000000
+            children [
+              Shape {
+                appearance DEF metal_seamed PBRAppearance {
+                  baseColor 0.3 0.3 0.500000
+                  roughness 1.000000
+                  metalness 0
+                }
+                geometry DEF base Mesh {
+                  url "meshes/omni/base.stl"
+                }
+              }
+            ]
+          }
+          Solid {
+            translation 0.000000 -0.020000 -0.025000
+            children [
+              Shape {
+                appearance DEF white PBRAppearance {
+                  baseColor 0.500000 0.500000 0.500000
+                  roughness 1.000000
+                  metalness 0
+                }
+                geometry Box {
+                   size 0.200000 0.200000 0.050000
+                }
+              }
+            ]
+            name "box"
+            boundingObject Box {
+               size 0.200000 0.200000 0.050000
+            }
+            physics Physics {
+              density -1
+              mass 0.500000
+              centerOfMass [ 0.000000 0.000000 0.000000 ]
+              inertiaMatrix [
+                2.000000e-03 2.000000e-03 2.000000e-03
+                0.000000e+00 0.000000e+00 0.000000e+00
+              ]
+            }
+          }
+          HingeJoint {
+            jointParameters HingeJointParameters {
+              axis 0.000000 0.000000 1.000000
+              anchor 0.000000 0.000000 0.090000
+              dampingConstant 0.5
+              staticFriction 0.5
+            }
+            device [
+              RotationalMotor {
+                name "waist"
+                maxVelocity 100.0
+                minPosition -0.98
+                maxPosition 0.98
+                maxTorque 5.0
+              }
+              PositionSensor {
+                name "waist_sensor"
+              }
+            ]
+            endPoint Solid {
+              translation 0.000000 0.000000 0.090000
+              children [
+                Pose {
+                  translation 0.000000 0.000000 0.036000
+                  rotation -1.000000 0.000000 0.000000 1.570700
+                  children [
+                    Shape {
+                      appearance DEF blue PBRAppearance {
+                        baseColor 0.0 0.0 1.0
+                        roughness 1.000000
+                        metalness 0
+                      }
+                      geometry DEF torso Mesh {
+                        url "meshes/omni/torso.stl"
+                      }
+                    }
+                  ]
+                }
+                HingeJoint {
+                  jointParameters HingeJointParameters {
+                    anchor -0.007500 0.000000 0.035000
+                    dampingConstant 0.5
+                    staticFriction 0.5
+                  }
+                  device [
+                    RotationalMotor {
+                      name "shoulder"
+                      maxVelocity 100.0
+                      maxPosition 1.75
+                      maxTorque 5.0
+                    }
+                    PositionSensor {
+                      name "shoulder_sensor"
+                    }
+                  ]
+                  endPoint Solid {
+                    translation -0.007500 0.000000 0.035000
+                    children [
+                      Pose {
+                        translation 0.007500 0.000000 0.000000
+                        children [
+                          Shape {
+                            appearance USE metal_seamed
+                            geometry DEF upper_arm Mesh {
+                              url "meshes/omni/upper_arm.stl"
+                            }
+                          }
+                        ]
+                      }
+                      HingeJoint {
+                        jointParameters HingeJointParameters {
+                          anchor 0.007500 0.134000 0.000000
+                          dampingConstant 0.5
+                          staticFriction 0.5
+                        }
+                        device [
+                          RotationalMotor {
+                            name "elbow"
+                            maxVelocity 100.0
+                            minPosition -0.81
+                            maxPosition 1.25
+                            maxTorque 5.0
+                          }
+                          PositionSensor {
+                            name "elbow_sensor"
+                          }
+                        ]
+                        endPoint Solid {
+                          translation 0.007500 0.134000 0.000000
+                          rotation -1.000000 0.000000 0.000000 1.500000
+                          children [
+                            Pose {
+                              rotation 1.000000 0.000000 0.000000 1.570700
+                              children [
+                                Shape {
+                                  appearance USE metal_seamed
+                                  geometry DEF lower_arm Mesh {
+                                    url "meshes/omni/lower_arm.stl"
+                                  }
+                                }
+                              ]
+                            }
+                            HingeJoint {
+                              jointParameters HingeJointParameters {
+                                axis 0.000000 1.000000 0.000000
+                                anchor 0.000000 0.080000 0.000000
+                                dampingConstant 0.5
+                                staticFriction 0.5
+                              }
+                              device [
+                                RotationalMotor {
+                                  name "yaw"
+                                  maxVelocity 100.0
+                                  minPosition -3.14159
+                                  maxPosition 3.14159
+                                  maxTorque 5.0
+                                }
+                                PositionSensor {
+                                  name "yaw_sensor"
+                                }
+                              ]
+                              endPoint Solid {
+                                translation 0.000000 0.080000 0.000000
+                                children [
+                                  Pose {
+                                    rotation 1.000000 0.000000 0.000000 3.141590
+                                    children [
+                                      Shape {
+                                        appearance USE metal_seamed
+                                        geometry DEF wrist Mesh {
+                                          url "meshes/omni/wrist.stl"
+                                        }
+                                      }
+                                    ]
+                                  }
+                                  HingeJoint {
+                                    jointParameters HingeJointParameters {
+                                      anchor 0.000000 0.052500 0.000000
+                                      dampingConstant 0.5
+                                      staticFriction 0.5
+                                    }
+                                    device [
+                                      RotationalMotor {
+                                        name "pitch"
+                                        maxVelocity 100.0
+                                        minPosition -0.5
+                                        maxPosition 1.75
+                                        maxTorque 5.0
+                                      }
+                                      PositionSensor {
+                                        name "pitch_sensor"
+                                      }
+                                    ]
+                                    endPoint Solid {
+                                      translation 0.000000 0.052500 0.000000
+                                      rotation 1.000000 0.000000 0.000000 0.500000
+                                      children [
+                                        Pose {
+                                          rotation -1.000000 0.000000 0.000000 1.570700
+                                          children [
+                                            Shape {
+                                              appearance USE metal_seamed
+                                              geometry DEF tip Mesh {
+                                                url "meshes/omni/tip.stl"
+                                              }
+                                            }
+                                          ]
+                                        }
+                                        HingeJoint {
+                                          jointParameters HingeJointParameters {
+                                            axis 0.000000 -1.000000 -0.000003
+                                            anchor 0.000000 -0.023000 0.000000
+                                            dampingConstant 0.5
+                                            staticFriction 0.5
+                                          }
+                                          device [
+                                            RotationalMotor {
+                                              name "roll"
+                                              maxVelocity 100.0
+                                              minPosition -2.58
+                                              maxPosition 2.58
+                                              maxTorque 5.0
+                                            }
+                                            PositionSensor {
+                                              name "roll_sensor"
+                                            }
+                                          ]
+                                          endPoint Solid {
+                                            translation 0.000000 -0.023000 0.000000
+                                            rotation 0.000001 0.000001 -1.000000 3.141593
+                                            children [
+                                              Pose {
+                                                translation 0.000000 -0.033000 0.000000
+                                                rotation 0.577369 0.577369 -0.577313 2.094284
+                                                children [
+                                                  Shape {
+                                                    appearance USE blue
+                                                    geometry DEF pen Mesh {
+                                                      url "meshes/omni/pen.stl"
+                                                    }
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                            name "stylus"
+                                            boundingObject Pose {
+                                              translation 0.000000 -0.033000 0.000000
+                                              rotation 0.577369 0.577369 -0.577313 2.094284
+                                              children [
+                                                USE pen
+                                              ]
+                                            }
+                                            physics Physics {
+                                              density -1
+                                              mass 0.020000
+                                              centerOfMass [ 0.000000 -0.015000 0.000000 ]
+                                              inertiaMatrix [
+                                                3.000000e-04 2.000000e-04 3.000000e-04
+                                                0.000000e+00 0.000000e+00 0.000000e+00
+                                              ]
+                                            }
+                                          }
+                                        }
+                                      ]
+                                      name "tip"
+                                      boundingObject Pose {
+                                        rotation -1.000000 0.000000 0.000000 1.570700
+                                        children [
+                                          USE tip
+                                        ]
+                                      }
+                                      physics Physics {
+                                        density -1
+                                        mass 0.050000
+                                        centerOfMass [ 0.000000 0.000000 0.000000 ]
+                                        inertiaMatrix [
+                                          6.000000e-04 6.000000e-04 6.000000e-04
+                                          0.000000e+00 0.000000e+00 0.000000e+00
+                                        ]
+                                      }
+                                    }
+                                  }
+                                ]
+                                name "wrist"
+                                boundingObject Pose {
+                                  rotation 1.000000 0.000000 0.000000 3.141590
+                                  children [
+                                    USE wrist
+                                  ]
+                                }
+                                physics Physics {
+                                  density -1
+                                  mass 0.100000
+                                  centerOfMass [ 0.000000 0.000000 0.000000 ]
+                                  inertiaMatrix [
+                                    1.200000e-03 1.200000e-03 1.200000e-03
+                                    0.000000e+00 0.000000e+00 0.000000e+00
+                                  ]
+                                }
+                              }
+                            }
+                          ]
+                          name "lower_arm"
+                          boundingObject Pose {
+                            rotation 1.000000 0.000000 0.000000 1.570700
+                            children [
+                              USE lower_arm
+                            ]
+                          }
+                          physics Physics {
+                            density -1
+                            mass 0.200000
+                            centerOfMass [ 0.000000 0.060000 0.000000 ]
+                            inertiaMatrix [
+                              3.000000e-03 2.000000e-03 3.000000e-03
+                              0.000000e+00 0.000000e+00 0.000000e+00
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                    name "upper_arm"
+                    boundingObject Pose {
+                      translation 0.007500 0.000000 0.000000
+                      children [
+                        USE upper_arm
+                      ]
+                    }
+                    physics Physics {
+                      density -1
+                      mass 0.300000
+                      centerOfMass [ 0.007500 0.000000 0.000000 ]
+                      inertiaMatrix [
+                        4.000000e-03 3.000000e-03 4.000000e-03
+                        0.000000e+00 0.000000e+00 0.000000e+00
+                      ]
+                    }
+                  }
+                }
+              ]
+              name "torso"
+              boundingObject Pose {
+                translation 0.000000 0.000000 0.036000
+                rotation -1.000000 0.000000 0.000000 1.570700
+                children [
+                  USE torso
+                ]
+              }
+              physics Physics {
+                density -1
+                mass 0.500000
+                centerOfMass [ 0.000000 0.000000 0.000000 ]
+                inertiaMatrix [
+                  6.000000e-03 6.000000e-03 6.000000e-03
+                  0.000000e+00 0.000000e+00 0.000000e+00
+                ]
+              }
+            }
+          }
+        ]
+        name "base"
+        boundingObject Pose {
+          translation 0.000000 -0.020000 0.000000
+          children [
+            USE base
+          ]
+        }
+        physics Physics {
+          density -1
+          mass 2.000000
+          centerOfMass [ 0.000000 0.000000 0.000000 ]
+          inertiaMatrix [
+            2.000000e-02 2.000000e-02 2.000000e-02
+            0.000000e+00 0.000000e+00 0.000000e+00
+          ]
+        }
+      }
+    ]
+    name IS name
+  }
+}

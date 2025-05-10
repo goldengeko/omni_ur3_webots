@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot name="combined_robots" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Phantom Omni Robot -->
+  <group name="phantom_omni">
+    <link name="phantom_omni_base">
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <mass value="1.0" />
+        <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.01" />
+      </inertial>
+    </link>
+    <include filename="omni.urdf" />
+  </group>
+
+  <!-- UR3 Robot -->
+  <group name="ur3_robot">
+    <link name="ur3_base">
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <mass value="1.0" />
+        <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.01" />
+      </inertial>
+    </link>
+    <include filename="ur3_robot.urdf" />
+  </group>
+
+  <!-- Transform between Phantom Omni and UR3 -->
+  <joint name="phantom_omni_to_ur3" type="fixed">
+    <parent link="phantom_omni_base" />
+    <child link="ur3_base" />
+    <origin xyz="1.0 0.0 0.0" rpy="0 0 0" />
+  </joint>
+
+</robot>

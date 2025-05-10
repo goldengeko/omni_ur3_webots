@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<robot name="PhantomOmni" xmlns:xacro="http://ros.org/wiki/xacro">
+  <webots>
+    <plugin type="webots_ros2_control::Ros2Control"/>
+  </webots>
+  <ros2_control name="WebotsControl" type="system">
+    <hardware>
+      <plugin>webots_ros2_control::Ros2ControlSystem</plugin>
+    </hardware>
+
+    <joint name="waist">
+      <command_interface name="position">
+        </command_interface>
+      
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      
+    </joint>
+    <joint name="shoulder">
+      <command_interface name="position">
+        </command_interface>
+      
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      
+    </joint>
+    <joint name="elbow">
+      <command_interface name="position">
+        </command_interface>
+      
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      
+    </joint>
+    <joint name="yaw">
+      <command_interface name="position">
+        </command_interface>
+      
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      
+    </joint>
+    <joint name="pitch">
+      <command_interface name="position">
+        </command_interface>
+      
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      
+    </joint>
+    <joint name="roll">
+      <command_interface name="position">
+        </command_interface>
+      
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      
+    </joint>
+  </ros2_control>
+</robot>

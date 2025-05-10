@@ -1,0 +1,25 @@
+omni/controller_manager:
+  ros__parameters:
+    update_rate: 50
+
+    omni_joint_trajectory_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+    omni_joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+      
+omni/omni_joint_trajectory_controller:
+  ros__parameters:
+    joints:
+      - waist
+      - shoulder
+      - elbow
+      - yaw
+      - pitch
+      - roll
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+
+

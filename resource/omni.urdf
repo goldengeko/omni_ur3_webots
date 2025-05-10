@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot name="phantom_omni" xmlns:xacro="http://www.ros.org/wiki/xacro">
+    
+    <!-- Materials -->
+    <material name="metal_seamed">
+        <color rgba="0.4627450980392157 0.4666666666666667 0.4509803921568628 1.0" />
+    </material>
+    <material name="blue">
+        <color rgba="0.0 0.0 0.8 1.0" />
+    </material>
+    <material name="white">
+        <color rgba="1.0 1.0 1.0 1.0" />
+    </material>
+
+    <!-- Webots and ROS2 Control -->
+    <webots>
+        <plugin type="webots_ros2_control::Ros2Control"/>
+        <physics static="true" /> <!-- Make base static -->
+    </webots>
+    <ros2_control name="WebotsControl" type="system">
+        <hardware>
+            <plugin>webots_ros2_control::Ros2ControlSystem</plugin>
+        </hardware>
+        <joint name="waist">
+            <command_interface name="position">
+                <param name="initial_position">0.0</param>
+            </command_interface>
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+        </joint>
+        <joint name="shoulder">
+            <command_interface name="position">
+                <param name="initial_position">0.0</param>
+            </command_interface>
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+        </joint>
+        <joint name="elbow">
+            <command_interface name="position">
+                <param name="initial_position">0.0</param>
+            </command_interface>
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+        </joint>
+        <joint name="yaw">
+            <command_interface name="position">
+                <param name="initial_position">0.0</param>
+            </command_interface>
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+        </joint>
+        <joint name="pitch">
+            <command_interface name="position">
+                <param name="initial_position">0.0</param>
+            </command_interface>
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+        </joint>
+        <joint name="roll">
+            <command_interface name="position">
+                <param name="initial_position">0.0</param>
+            </command_interface>
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+        </joint>
+    </ros2_control>
+    
+    <!-- Add the world frame -->
+    <link name="world"/>
+
+    <joint name="world_to_base" type="fixed">
+        <parent link="world"/>
+        <child link="base"/>
+        <origin xyz="-1 0 0.05" rpy="0 0 0"/>
+    </joint>
+
+    <!-- Links -->
+    <link name="base">
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <mass value="2.0" /> <!-- Increased for stability -->
+            <inertia ixx="0.02" ixy="0.0" ixz="0.0" iyy="0.02" iyz="0.0" izz="0.02" />
+        </inertial>
+        <visual>
+            <origin xyz="0 -0.02 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://webots_ros2_omni/protos/meshes/omni/base.stl" />
+            </geometry>
+            <material name="metal_seamed" />
+        </visual>
+        <collision>
+            <origin xyz="0 -0.02 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://webots_ros2_omni/protos/meshes/omni/base.stl" />
+            </geometry>
+        </collision>
+    </link>
+    
+    <link name="box">
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <mass value="0.5" />
+            <inertia ixx="0.002" ixy="0.0" ixz="0.0" iyy="0.002" iyz="0.0" izz="0.002" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <box size="0.2 0.2 0.05" />
+            </geometry>
+            <material name="white" />
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <box size="0.2 0.2 0.05" />
+            </geometry>
+        </collision>
+    </link>
+    
+    <joint name="base_to_box" type="fixed">
+        <parent link="base" />
+        <child link="box" />
+        <origin xyz="0 -0.02 -0.025" rpy="0 0 0" /> <!-- Box below base -->
+    </joint>
+    
+    <link name="torso">
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <mass value="0.5" />
+            <inertia ixx="0.006" ixy="0.0" ixz="0.0" iyy="0.006" iyz="0.0" izz="0.006" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0.036" rpy="-1.5707 0 0" />
+            <geometry>
+                <mesh filename="package://webots_ros2_omni/protos/meshes/omni/torso.stl" />
+            </geometry>
+            <material name="blue" />
+        </visual>
+        <collision>
+            <origin xyz="0 0 0.036" rpy="-1.5707 0 0" />
+            <geometry>
+                <mesh filename="package://webots_ros2_omni/protos/meshes/omni/torso.stl" />
+            </geometry>
+        </collision>
+    </link>
+    
+    <link name="upper_arm">
+        <inertial>
+            <origin xyz="0.0075 0 0" rpy="0 0 0" />
+            <mass value="0.3" />
+            <inertia ixx="0.004" ixy="0.0" ixz="0.0" iyy="0.003" iyz="0.0" izz="0.004" />
+        </inertial>
+        <visual>
+            <origin xyz="0.0075 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://webots_ros2_omni/protos/meshes/omni/upper_arm.stl" />
+            </geometry>
+            <material name="metal_seamed" />
+        </visual>
+        <collision>
+            <origin xyz="0.0075 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://webots_ros2_omni/protos/meshes/omni/upper_arm.stl" />
+            </geometry>
+        </collision>
+    </link>
+    
+    <link name="lower_arm">
+        <inertial>
+            <origin xyz="0 0.06 0" rpy="0 0 0" />
+            <mass value="0.2" />
+            <inertia ixx="0.003" ixy="0.0" ixz="0.0" iyy="0.002" iyz="0.0" izz="0.003" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="1.5707 0 0" />
+            <geometry>
+                <mesh filename="package://webots_ros2_omni/protos/meshes/omni/lower_arm.stl" />
+            </geometry>
+            <material name="metal_seamed" />
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="1.5707 0 0" />
+            <geometry>
+                <mesh filename="package://webots_ros2_omni/protos/meshes/omni/lower_arm.stl" />
+            </geometry>
+        </collision>
+    </link>
+    
+    <link name="wrist">
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <mass value="0.1" />
+            <inertia ixx="0.0012" ixy="0.0" ixz="0.0" iyy="0.0012" iyz="0.0" izz="0.0012" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="3.14159 0 0" />
+            <geometry>
+                <mesh filename="package://webots_ros2_omni/protos/meshes/omni/wrist.stl" />
+            </geometry>
+            <material name="metal_seamed" />
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="3.14159 0 0" />
+            <geometry>
+                <mesh filename="package://webots_ros2_omni/protos/meshes/omni/wrist.stl" />
+            </geometry>
+        </collision>
+    </link>
+    
+    <link name="tip">
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <mass value="0.05" />
+            <inertia ixx="0.0006" ixy="0.0" ixz="0.0" iyy="0.0006" iyz="0.0" izz="0.0006" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="-1.5707 0 0" />
+            <geometry>
+                <mesh filename="package://webots_ros2_omni/protos/meshes/omni/tip.stl" />
+            </geometry>
+            <material name="metal_seamed" />
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="-1.5707 0 0" />
+            <geometry>
+                <mesh filename="package://webots_ros2_omni/protos/meshes/omni/tip.stl" />
+            </geometry>
+        </collision>
+    </link>
+    
+    <link name="stylus">
+        <inertial>
+            <origin xyz="0 -0.015 0" rpy="0 0 0" />
+            <mass value="0.02" />
+            <inertia ixx="0.0003" ixy="0.0" ixz="0.0" iyy="0.0002" iyz="0.0" izz="0.0003" />
+        </inertial>
+        <visual>
+            <origin xyz="0 -0.033 0" rpy="1.5707 1.5707 0" />
+            <geometry>
+                <mesh filename="package://webots_ros2_omni/protos/meshes/omni/pen.stl" />
+            </geometry>
+            <material name="blue" />
+        </visual>
+        <collision>
+            <origin xyz="0 -0.033 0" rpy="1.5707 1.5707 0" />
+            <geometry>
+                <mesh filename="package://webots_ros2_omni/protos/meshes/omni/pen.stl" />
+            </geometry>
+        </collision>
+    </link>
+    
+    <!-- Joints -->
+    <joint name="waist" type="revolute">
+        <parent link="base" />
+        <child link="torso" />
+        <origin xyz="0 0 0.09" rpy="0 0 0" />
+        <axis xyz="0 0 1" />
+        <limit lower="-0.98" upper="0.98" velocity="100" effort="5" />
+        <dynamics damping="0.5" friction="0.5" />
+    </joint>
+    
+    <joint name="shoulder" type="revolute">
+        <parent link="torso" />
+        <child link="upper_arm" />
+        <origin xyz="-0.0075 0 0.035" rpy="0 0 0" />
+        <axis xyz="1 0 0" />
+        <limit lower="0" upper="1.75" velocity="100" effort="5" />
+        <dynamics damping="0.5" friction="0.5" />
+    </joint>
+    
+    <joint name="elbow" type="revolute">
+        <parent link="upper_arm" />
+        <child link="lower_arm" />
+        <origin xyz="0.0075 0.134 0" rpy="-1.5 0 0" />
+        <axis xyz="1 0 0" />
+        <limit lower="-0.81" upper="1.25" velocity="100" effort="5" />
+        <dynamics damping="0.5" friction="0.5" />
+    </joint>
+    
+    <joint name="yaw" type="revolute">
+        <parent link="lower_arm" />
+        <child link="wrist" />
+        <origin xyz="0 0.08 0" rpy="0 0 0" />
+        <axis xyz="0 1 0" />
+        <limit lower="-3.14159" upper="3.14159" velocity="100" effort="5" />
+        <dynamics damping="0.5" friction="0.5" />
+    </joint>
+    
+    <joint name="pitch" type="revolute">
+        <parent link="wrist" />
+        <child link="tip" />
+        <origin xyz="0 0.0525 0" rpy="0.5 0 0" />
+        <axis xyz="1 0 0" />
+        <limit lower="-0.5" upper="1.75" velocity="100" effort="5" />
+        <dynamics damping="0.5" friction="0.5" />
+    </joint>
+    
+    <joint name="roll" type="revolute">
+        <parent link="tip" />
+        <child link="stylus" />
+        <origin xyz="0 -0.023 0" rpy="3.14159 3.14159 0" />
+        <axis xyz="0 1 0" />
+        <limit lower="-2.58" upper="2.58" velocity="100" effort="5" />
+        <dynamics damping="0.5" friction="0.5" />
+    </joint>
+</robot>

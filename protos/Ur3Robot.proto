@@ -1,0 +1,366 @@
+#VRML_SIM R2025a utf8
+# license: Apache License 2.0
+# license url: http://www.apache.org/licenses/LICENSE-2.0
+# This is a proto file for Webots for the Ur3Robot
+# Extracted from: /home/guts/omni_ws/src/webots_ros2_omni/resource/ur3_robot.urdf
+
+PROTO Ur3Robot [
+  field  SFVec3f     translation     0 0 0
+  field  SFRotation  rotation        0 0 1 0
+  field  SFString    name            "Ur3Robot"  # Is `Robot.name`.
+  field  SFString    controller      "void"      # Is `Robot.controller`.
+  field  MFString    controllerArgs  []          # Is `Robot.controllerArgs`.
+  field  SFString    customData      ""          # Is `Robot.customData`.
+  field  SFBool      supervisor      FALSE       # Is `Robot.supervisor`.
+  field  SFBool      synchronization TRUE        # Is `Robot.synchronization`.
+  field  SFBool      selfCollision   FALSE       # Is `Robot.selfCollision`.
+]
+{
+  Robot {
+    translation IS translation
+    rotation IS rotation
+    controller IS controller
+    controllerArgs IS controllerArgs
+    customData IS customData
+    supervisor IS supervisor
+    synchronization IS synchronization
+    selfCollision IS selfCollision
+    children [
+      Solid {
+        rotation 0.000000 0.000000 1.000000 3.141593
+        children [
+          Pose {
+            rotation 0.000000 0.000000 1.000000 3.141593
+            children [
+              DEF base_visual CadShape {
+                url "/opt/ros/humble/share/ur_description/meshes/ur3/visual/base.dae"
+              }
+            ]
+          }
+          HingeJoint {
+            jointParameters HingeJointParameters {
+              axis 0.000000 0.000000 1.000000
+              anchor 0.000000 0.000000 0.151900
+            }
+            device [
+              RotationalMotor {
+                name "shoulder_pan_joint"
+                maxVelocity 3.141592653589793
+                minPosition -6.283185307179586
+                maxPosition 6.283185307179586
+                maxTorque 56.0
+              }
+              PositionSensor {
+                name "shoulder_pan_joint_sensor"
+              }
+            ]
+            endPoint Solid {
+              translation 0.000000 0.000000 0.151900
+              children [
+                Pose {
+                  rotation 0.000000 0.000000 1.000000 3.141593
+                  children [
+                    DEF shoulder_visual CadShape {
+                      url "/opt/ros/humble/share/ur_description/meshes/ur3/visual/shoulder.dae"
+                    }
+                  ]
+                }
+                HingeJoint {
+                  jointParameters HingeJointParameters {
+                    axis 0.000000 -1.000000 -0.000000
+                  }
+                  device [
+                    RotationalMotor {
+                      name "shoulder_lift_joint"
+                      maxVelocity 3.141592653589793
+                      minPosition -6.283185307179586
+                      maxPosition 6.283185307179586
+                      maxTorque 56.0
+                    }
+                    PositionSensor {
+                      name "shoulder_lift_joint_sensor"
+                    }
+                  ]
+                  endPoint Solid {
+                    rotation 1.000000 0.000000 0.000000 1.570796
+                    children [
+                      Pose {
+                        translation 0.000000 0.000000 0.119800
+                        rotation 0.577350 -0.577350 -0.577350 2.094395
+                        children [
+                          DEF upperarm_visual CadShape {
+                            url "/opt/ros/humble/share/ur_description/meshes/ur3/visual/upperarm.dae"
+                          }
+                        ]
+                      }
+                      HingeJoint {
+                        jointParameters HingeJointParameters {
+                          axis 0.000000 0.000000 1.000000
+                          anchor -0.243650 0.000000 0.000000
+                        }
+                        device [
+                          RotationalMotor {
+                            name "elbow_joint"
+                            maxVelocity 3.141592653589793
+                            minPosition -3.141592653589793
+                            maxPosition 3.141592653589793
+                            maxTorque 28.0
+                          }
+                          PositionSensor {
+                            name "elbow_joint_sensor"
+                          }
+                        ]
+                        endPoint Solid {
+                          translation -0.243650 0.000000 0.000000
+                          children [
+                            Pose {
+                              translation 0.000000 0.000000 0.027500
+                              rotation 0.577350 -0.577350 -0.577350 2.094395
+                              children [
+                                DEF forearm_visual CadShape {
+                                  url "/opt/ros/humble/share/ur_description/meshes/ur3/visual/forearm.dae"
+                                }
+                              ]
+                            }
+                            HingeJoint {
+                              jointParameters HingeJointParameters {
+                                axis 0.000000 0.000000 1.000000
+                                anchor -0.213250 0.000000 0.112350
+                              }
+                              device [
+                                RotationalMotor {
+                                  name "wrist_1_joint"
+                                  maxVelocity 6.283185307179586
+                                  minPosition -6.283185307179586
+                                  maxPosition 6.283185307179586
+                                  maxTorque 12.0
+                                }
+                                PositionSensor {
+                                  name "wrist_1_joint_sensor"
+                                }
+                              ]
+                              endPoint Solid {
+                                translation -0.213250 0.000000 0.112350
+                                children [
+                                  Pose {
+                                    translation 0.000000 0.000000 -0.085000
+                                    rotation 1.000000 0.000000 0.000000 1.570796
+                                    children [
+                                      DEF wrist1_visual CadShape {
+                                        url "/opt/ros/humble/share/ur_description/meshes/ur3/visual/wrist1.dae"
+                                      }
+                                    ]
+                                  }
+                                  HingeJoint {
+                                    jointParameters HingeJointParameters {
+                                      axis 0.000000 -1.000000 -0.000000
+                                      anchor 0.000000 -0.085350 -0.000000
+                                    }
+                                    device [
+                                      RotationalMotor {
+                                        name "wrist_2_joint"
+                                        maxVelocity 6.283185307179586
+                                        minPosition -6.283185307179586
+                                        maxPosition 6.283185307179586
+                                        maxTorque 12.0
+                                      }
+                                      PositionSensor {
+                                        name "wrist_2_joint_sensor"
+                                      }
+                                    ]
+                                    endPoint Solid {
+                                      translation 0.000000 -0.085350 -0.000000
+                                      rotation 1.000000 0.000000 0.000000 1.570796
+                                      children [
+                                        Pose {
+                                          translation 0.000000 0.000000 -0.085000
+                                          children [
+                                            DEF wrist2_visual CadShape {
+                                              url "/opt/ros/humble/share/ur_description/meshes/ur3/visual/wrist2.dae"
+                                            }
+                                          ]
+                                        }
+                                        HingeJoint {
+                                          jointParameters HingeJointParameters {
+                                            axis 0.000000 1.000000 -0.000000
+                                            anchor 0.000000 0.081900 -0.000000
+                                          }
+                                          device [
+                                            RotationalMotor {
+                                              name "wrist_3_joint"
+                                              maxVelocity 6.283185307179586
+                                              minPosition -6.283185307179586
+                                              maxPosition 6.283185307179586
+                                              maxTorque 12.0
+                                            }
+                                            PositionSensor {
+                                              name "wrist_3_joint_sensor"
+                                            }
+                                          ]
+                                          endPoint Solid {
+                                            translation 0.000000 0.081900 -0.000000
+                                            rotation -1.000000 0.000000 0.000000 1.570796
+                                            children [
+                                              Pose {
+                                                translation 0.000000 0.000000 -0.082000
+                                                rotation 1.000000 0.000000 0.000000 1.570796
+                                                children [
+                                                  DEF wrist3_visual CadShape {
+                                                    url "/opt/ros/humble/share/ur_description/meshes/ur3/visual/wrist3.dae"
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                            name "wrist_3_link"
+                                            boundingObject Pose {
+                                              translation 0.000000 0.000000 -0.082000
+                                              rotation 1.000000 0.000000 0.000000 1.570796
+                                              children [
+                                                DEF wrist3 Mesh {
+                                                  url "/opt/ros/humble/share/ur_description/meshes/ur3/collision/wrist3.stl"
+                                                }
+                                              ]
+                                            }
+                                            physics Physics {
+                                              density -1
+                                              mass 0.350000
+                                              centerOfMass [ 0.000000 0.000000 -0.020000 ]
+                                              inertiaMatrix [
+                                                1.362666e-04 1.362666e-04 1.792000e-04
+                                                0.000000e+00 0.000000e+00 0.000000e+00
+                                              ]
+                                            }
+                                          }
+                                        }
+                                      ]
+                                      name "wrist_2_link"
+                                      boundingObject Pose {
+                                        translation 0.000000 0.000000 -0.085000
+                                        children [
+                                          DEF wrist2 Mesh {
+                                            url "/opt/ros/humble/share/ur_description/meshes/ur3/collision/wrist2.stl"
+                                          }
+                                        ]
+                                      }
+                                      physics Physics {
+                                        density -1
+                                        mass 0.800000
+                                        centerOfMass [ 0.000000 0.000000 0.000000 ]
+                                        inertiaMatrix [
+                                          1.572173e-03 1.572173e-03 2.250000e-03
+                                          0.000000e+00 0.000000e+00 0.000000e+00
+                                        ]
+                                      }
+                                    }
+                                  }
+                                ]
+                                name "wrist_1_link"
+                                boundingObject Pose {
+                                  translation 0.000000 0.000000 -0.085000
+                                  rotation 1.000000 0.000000 0.000000 1.570796
+                                  children [
+                                    DEF wrist1 Mesh {
+                                      url "/opt/ros/humble/share/ur_description/meshes/ur3/collision/wrist1.stl"
+                                    }
+                                  ]
+                                }
+                                physics Physics {
+                                  density -1
+                                  mass 0.800000
+                                  centerOfMass [ 0.000000 0.000000 0.000000 ]
+                                  inertiaMatrix [
+                                    1.610641e-03 1.610641e-03 2.250000e-03
+                                    0.000000e+00 0.000000e+00 0.000000e+00
+                                  ]
+                                }
+                              }
+                            }
+                          ]
+                          name "forearm_link"
+                          boundingObject Pose {
+                            translation 0.000000 0.000000 0.027500
+                            rotation 0.577350 -0.577350 -0.577350 2.094395
+                            children [
+                              DEF forearm Mesh {
+                                url "/opt/ros/humble/share/ur_description/meshes/ur3/collision/forearm.stl"
+                              }
+                            ]
+                          }
+                          physics Physics {
+                            density -1
+                            mass 1.260000
+                            centerOfMass [ -0.106625 0.000000 0.027500 ]
+                            inertiaMatrix [
+                              3.543750e-03 6.546806e-03 6.546806e-03
+                              0.000000e+00 1.838842e-19 0.000000e+00
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                    name "upper_arm_link"
+                    boundingObject Pose {
+                      translation 0.000000 0.000000 0.119800
+                      rotation 0.577350 -0.577350 -0.577350 2.094395
+                      children [
+                        DEF upperarm Mesh {
+                          url "/opt/ros/humble/share/ur_description/meshes/ur3/collision/upperarm.stl"
+                        }
+                      ]
+                    }
+                    physics Physics {
+                      density -1
+                      mass 3.420000
+                      centerOfMass [ -0.121825 0.000000 0.120000 ]
+                      inertiaMatrix [
+                        9.618750e-03 2.172848e-02 2.172848e-02
+                        0.000000e+00 7.415073e-19 0.000000e+00
+                      ]
+                    }
+                  }
+                }
+              ]
+              name "shoulder_link"
+              boundingObject Pose {
+                rotation 0.000000 0.000000 1.000000 3.141593
+                children [
+                  DEF shoulder Mesh {
+                    url "/opt/ros/humble/share/ur_description/meshes/ur3/collision/shoulder.stl"
+                  }
+                ]
+              }
+              physics Physics {
+                density -1
+                mass 2.000000
+                centerOfMass [ 0.000000 0.000000 0.000000 ]
+                inertiaMatrix [
+                  8.093163e-03 8.093163e-03 5.625000e-03
+                  0.000000e+00 0.000000e+00 0.000000e+00
+                ]
+              }
+            }
+          }
+        ]
+        name "base_link_inertia"
+        boundingObject Pose {
+          rotation 0.000000 0.000000 1.000000 3.141593
+          children [
+            DEF base Mesh {
+              url "/opt/ros/humble/share/ur_description/meshes/ur3/collision/base.stl"
+            }
+          ]
+        }
+        physics Physics {
+          density -1
+          mass 2.000000
+          centerOfMass [ 0.000000 0.000000 0.000000 ]
+          inertiaMatrix [
+            3.053165e-03 3.053165e-03 5.625000e-03
+            0.000000e+00 0.000000e+00 0.000000e+00
+          ]
+        }
+      }
+    ]
+    name IS name
+  }
+}
