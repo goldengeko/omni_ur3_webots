@@ -14,6 +14,7 @@ PROTO Ur3Robot [
   field  SFBool      supervisor      FALSE       # Is `Robot.supervisor`.
   field  SFBool      synchronization TRUE        # Is `Robot.synchronization`.
   field  SFBool      selfCollision   FALSE       # Is `Robot.selfCollision`.
+  field  MFNode      toolSlot        []
 ]
 {
   Robot {
@@ -232,6 +233,11 @@ PROTO Ur3Robot [
                                             }
                                           }
                                         }
+                                        Transform {
+                                            translation 0 0.0819 -1.679797079540562e-11
+                                            rotation -1 0 0 1.5708
+                                            children IS toolSlot
+                                          }
                                       ]
                                       name "wrist_2_link"
                                       boundingObject Pose {
